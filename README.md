@@ -18,7 +18,7 @@
 ## 各function說明：
 
 ### 1. getTopN:
-將預測資料( predictions )其中資料取出，判斷是否超過自己設計的門檻( minimumRating )，若超過則加入topN的dict陣列中，以利之後透過 heapq.nlargest 進行排序
+將預測資料( predictions )其中資料取出，判斷是否超過自己設計的門檻( minimumRating )，若超過則加入 topN 的 dict 陣列中，以利之後透過 heapq.nlargest 進行排序
 
 ```
 def getTopN(predictions, n = 10, minimumRating=4.0):
@@ -33,14 +33,14 @@ topN = defaultdict(list)
     
 
 ### 2.recommend_getTopN:
-此類似getTOPN，只是多了 ui 並只需再判斷user未看過的電影
+此類似 getTOPN，只是多了 uid 並只需再判斷user未看過的電影
 為其進行排序，最後再 output top_N 的電影與分數
 ```
 def recommend_getTopN(predictions, uid, n = 10, minimumRating=4.0):
     topN = defaultdict(list)
     for userID, movieID, actualRating, estimatedRating, _ in predictions:
-        if userID == 4 and estimatedRating >= 4.0:
-            if movieID not in df[df['userId'] == 4].movieId.values:
+        if userID == uid and estimatedRating >= minimumRating:
+            if movieID not in df[df['userId'] == uid.movieId.values:
                 topN[movieID] = estimatedRating
     movies = []
     rating = []
@@ -48,7 +48,7 @@ def recommend_getTopN(predictions, uid, n = 10, minimumRating=4.0):
         movies.append(movie)
         rating.append(ratings)
     recoommand_movie = pd.DataFrame(rating, index = np.array(movies).astype(int), columns = ['ratings'])
-    top_N = recoommand_movie.sort_values(by = 'ratings')[::-1][:10]
+    top_N = recoommand_movie.sort_values(by = 'ratings')[::-1][:n]
     return top_N
 ```
 
