@@ -4,7 +4,13 @@
 *    將 raings_small 放入想存取的雲端位置
 *    利用pandas讀入(df)
    
-   ![](https://i.imgur.com/ZzgnaKG.png)
+```
+df = pd.read_csv('/content/gdrive/My Drive/AI/ratings_small.csv')
+df
+```
+
+![](https://i.imgur.com/MyPgqui.png)
+
 
 #### 2. 建置 model:
 * 將每個 user 最新評分的資料當作 test data (leaveoneout)
